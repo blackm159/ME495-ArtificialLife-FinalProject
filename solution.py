@@ -8,8 +8,10 @@ import stat
 
 
 class SOLUTION:
-    def __init__(self, nextAvailableID):
+    def __init__(self, nextAvailableID, evolveType):
         self.myID = nextAvailableID
+        self.evolveType = evolveType
+        # self.generationCounter = 0
         self.seed = c.seed
         random.seed(self.seed)
 
@@ -197,7 +199,7 @@ class SOLUTION:
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness" + str(self.myID) + ".txt"
         while not os.path.exists(fitnessFileName):
-            time.sleep(0.01)
+            time.sleep(0.1)
 
         try:
             fitnessFile = open(fitnessFileName, "r")
@@ -210,38 +212,75 @@ class SOLUTION:
         fitnessFile.close()
         os.system("del " + fitnessFileName)
 
-    def Mutate(self):
-        randRow = random.randint(0,self.numSensorNeurons-1)
-        randCol = random.randint(0,c.numMotorNeurons-1)
-
-        self.weights[randRow, randCol] = random.random()*2 - 1
-
-        randJointAxis = random.randint(0,len(self.jointNames)-1)
-        jointDir = random.randint(1,3)
-        if jointDir == 1:
-            self.jointAxis[self.jointNames[randJointAxis]] = "1 0 0"
-        elif jointDir == 2:
-            self.jointAxis[self.jointNames[randJointAxis]] = "0 1 0"
-        elif jointDir == 3:
-            self.jointAxis[self.jointNames[randJointAxis]] = "0 0 1"
-
+    def Mutate(self, generationCounter):
         
-        randSensor = random.randint(0,len(self.linkNames)-1)
-        if randSensor in self.randSensors:
-            self.myColor[self.linkNames[randSensor]] = "blue"
-            ind = self.randSensors.index(randSensor)
-            self.randSensors.remove(randSensor)
-            self.weights = np.delete(self.weights, ind, 0)
-            self.numSensorNeurons = self.numSensorNeurons - 1
+        brainFlag = 0
+        bodyFlag = 0
+
+        if self.evolveType == "CoEvolution":
+            brainFlag = 1
+            bodyFlag = 1
+
+        elif self.evolveType == "BodyBrain":
+            if generationCounter < c.numberOfGenerations/2:
+                bodyFlag = 1
+            else:
+                brainFlag = 1
+
+        elif self.evolveType == "BrainBody":
+            if generationCounter < c.numberOfGenerations/2:
+                brainFlag = 1
+            else:
+                bodyFlag = 1
+
         else:
-            self.myColor[self.linkNames[randSensor]] = "green"
-            self.randSensors.append(randSensor)
-            # self.randSensors.sort()
-            self.numSensorNeurons = self.numSensorNeurons + 1
-            newrow = []
-            for col in range(0, c.numMotorNeurons):
-                newrow.append(np.random.rand()*2 - 1)
-            self.weights = np.append(self.weights, [newrow], axis=0)
+            print("Invalid evolution type")
+
+
+        if brainFlag == 1:
+            print("Evolving brain for " + str(generationCounter))
+
+            if self.numSensorNeurons > 1:
+                randRow = random.randint(0,self.numSensorNeurons-1)
+            else:
+                randRow = 0
+            randCol = random.randint(0,c.numMotorNeurons-1)
+
+            self.weights[randRow, randCol] = random.random()*2 - 1
+
+            randSensor = random.randint(0,len(self.linkNames)-1)
+            if randSensor in self.randSensors and self.numSensorNeurons > 1:
+                self.myColor[self.linkNames[randSensor]] = "blue"
+                ind = self.randSensors.index(randSensor)
+                self.randSensors.remove(randSensor)
+                self.weights = np.delete(self.weights, ind, 0)
+                self.numSensorNeurons = self.numSensorNeurons - 1
+            else:
+                self.myColor[self.linkNames[randSensor]] = "green"
+                self.randSensors.append(randSensor)
+                # self.randSensors.sort()
+                self.numSensorNeurons = self.numSensorNeurons + 1
+                newrow = []
+                for col in range(0, c.numMotorNeurons):
+                    newrow.append(np.random.rand()*2 - 1)
+                self.weights = np.append(self.weights, [newrow], axis=0)
+
+
+        if bodyFlag == 1:
+            print("Evolving body for " + str(generationCounter))
+
+            randJointAxis = random.randint(0,len(self.jointNames)-1)
+            jointDir = random.randint(1,3)
+            if jointDir == 1:
+                self.jointAxis[self.jointNames[randJointAxis]] = "1 0 0"
+            elif jointDir == 2:
+                self.jointAxis[self.jointNames[randJointAxis]] = "0 1 0"
+            elif jointDir == 3:
+                self.jointAxis[self.jointNames[randJointAxis]] = "0 0 1"
+
+
+
+        # self.generationCounter = self.generationCounter + 1
 
 
         # # self.weights = np.empty(shape=(a,b), dtype='object')

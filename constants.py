@@ -23,10 +23,10 @@ frontLegMotorValues = frontLegAmplitude * np.sin(frontLegFrequency *
 backLegMotorValues = backLegAmplitude * np.sin(backLegFrequency * 
     np.linspace(0, 2*np.pi, 1000) + backLegPhaseOffset)
 
-numberOfGenerations = 100
+numberOfGenerations = 50
 populationSize = 10
 
-seed = 8#random.randint(0,100)
+seed = 20#random.randint(0,100)
 
 random.seed(seed)
 

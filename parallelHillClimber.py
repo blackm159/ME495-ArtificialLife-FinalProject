@@ -6,16 +6,20 @@ import random
 import time
 
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self):
+    def __init__(self, evolveType):
         # os.system("del brain*.nndf")
         # os.system("del body*.urdf")
         # os.system("del fitness*.txt")
         # os.system("del tmp*.txt")
         # self.parent = SOLUTION()
+
+        self.evolveType = evolveType
+        self.generationCounter = 1
+
         self.nextAvailableID = 0
         self.parents = {}
         for parent in range(0, c.populationSize):
-            self.parents[parent] = SOLUTION(self.nextAvailableID)
+            self.parents[parent] = SOLUTION(self.nextAvailableID, self.evolveType)
             self.nextAvailableID = self.nextAvailableID + 1
 
         self.bestFitness = []
@@ -41,7 +45,7 @@ class PARALLEL_HILL_CLIMBER:
             self.Evolve_For_One_Generation()
 
         print(self.bestFitness)
-        filename = "Seed" + str(self.seed) +".txt"
+        filename = self.evolveType + "_seed" + str(self.seed) +".txt"
         f = open(filename, "w")
         f.write(str(self.bestFitness))
         f.close()
@@ -62,7 +66,9 @@ class PARALLEL_HILL_CLIMBER:
 
     def Mutate(self):
         for child in self.children:
-            self.children[child].Mutate()
+            self.children[child].Mutate(self.generationCounter)
+
+        self.generationCounter = self.generationCounter + 1
 
     def Select(self):
         for key in self.parents:
