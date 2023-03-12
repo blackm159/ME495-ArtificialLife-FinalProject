@@ -23,7 +23,7 @@ input("Please press enter when ready to record best \n")
 
 phc_coevolve.Show_Best()
 
-input("Please press enter to continue to brain first evolution \n")
+# input("Please press enter to continue to brain first evolution \n")
 
 # # ***********************************************************************
 # # BRAIN FIRST HALF
@@ -50,6 +50,20 @@ input("Please press enter to continue to brain first evolution \n")
 # input("Please press enter when ready to record best \n")
 
 # phc_body.Show_Best()
+
+# input("Please press enter to continue to probability evolution \n")
+
+# # ***********************************************************************
+# # PROBABILITY
+# os.system("py removeFiles.py")
+
+# phc_prob = PARALLEL_HILL_CLIMBER("Probability")
+
+# phc_prob.Evolve()
+
+# input("Please press enter when ready to record best \n")
+
+# phc_prob.Show_Best()
 
 
 

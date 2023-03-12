@@ -32,7 +32,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.parents)
 
         tempBest = self.parents[0].fitness
-        tempBestID = self.parents[0].myID
+        tempBestKey = self.parents[0].myID
         for key in self.parents:
             if self.parents[key].fitness < tempBest:
                 # tempBestKey = key
@@ -86,7 +86,7 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
 
         tempBest = self.parents[0].fitness
-        tempBestID = self.parents[0].myID
+        tempBestKey = self.parents[0].myID
         for key in self.parents:
             if self.parents[key].fitness < tempBest:
                 # tempBestKey = key

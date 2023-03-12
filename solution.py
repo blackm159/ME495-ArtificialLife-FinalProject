@@ -215,10 +215,12 @@ class SOLUTION:
     def Mutate(self, generationCounter):
         
         brainFlag = 0
+        sensorFlag = 0 # part of brain evolution
         bodyFlag = 0
 
         if self.evolveType == "CoEvolution":
             brainFlag = 1
+            sensorFlag = 1
             bodyFlag = 1
 
         elif self.evolveType == "BodyBrain":
@@ -226,12 +228,26 @@ class SOLUTION:
                 bodyFlag = 1
             else:
                 brainFlag = 1
+                sensorFlag = 1
 
         elif self.evolveType == "BrainBody":
             if generationCounter < c.numberOfGenerations/2:
                 brainFlag = 1
+                sensorFlag = 1
             else:
                 bodyFlag = 1
+
+        elif self.evolveType == "Probability":
+            a = random.randint(0,2)
+
+            if a == 0:
+                brainFlag = 1
+            elif a == 1:
+                sensorFlag = 1
+            elif a == 2:
+                bodyFlag = 1
+            else:
+                print("No evolution for " + str(generationCounter) + " with ID " + str(self.myID))
 
         else:
             print("Invalid evolution type")
@@ -247,6 +263,9 @@ class SOLUTION:
             randCol = random.randint(0,c.numMotorNeurons-1)
 
             self.weights[randRow, randCol] = random.random()*2 - 1
+
+        if sensorFlag == 1:
+            print("Evolving sensors for " + str(generationCounter))
 
             randSensor = random.randint(0,len(self.linkNames)-1)
             if randSensor in self.randSensors and self.numSensorNeurons > 1:
