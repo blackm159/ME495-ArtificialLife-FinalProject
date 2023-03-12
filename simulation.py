@@ -17,7 +17,7 @@ class SIMULATION:
             self.timeSleep = 0.005 #0.0075
         else: 
             self.physicsClient = p.connect(p.DIRECT)
-            self.timeSleep = 0.00
+            self.timeSleep = 0.001
 
         # self.physicsClient = p.connect(p.GUI)
         # self.physicsClient = p.connect(p.DIRECT)

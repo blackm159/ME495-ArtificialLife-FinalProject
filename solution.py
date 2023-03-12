@@ -199,7 +199,7 @@ class SOLUTION:
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness" + str(self.myID) + ".txt"
         while not os.path.exists(fitnessFileName):
-            time.sleep(0.1)
+            time.sleep(0.2)
 
         try:
             fitnessFile = open(fitnessFileName, "r")

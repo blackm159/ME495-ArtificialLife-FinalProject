@@ -23,7 +23,7 @@ input("Please press enter when ready to record best \n")
 
 phc_coevolve.Show_Best()
 
-# input("Please press enter to continue to brain first evolution \n")
+# # input("Please press enter to continue to brain first evolution \n")
 
 # # ***********************************************************************
 # # BRAIN FIRST HALF
