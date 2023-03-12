@@ -23,6 +23,7 @@ class PARALLEL_HILL_CLIMBER:
             self.nextAvailableID = self.nextAvailableID + 1
 
         self.bestFitness = []
+        self.bestFitnessIDs = []
 
         self.seed = c.seed
         random.seed(self.seed)
@@ -31,12 +32,15 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.parents)
 
         tempBest = self.parents[0].fitness
+        tempBestID = self.parents[0].myID
         for key in self.parents:
             if self.parents[key].fitness < tempBest:
                 # tempBestKey = key
                 tempBest = self.parents[key].fitness
+                tempBestKey = self.parents[key].myID
         
         self.bestFitness.append(tempBest)
+        self.bestFitnessIDs.append(tempBestKey)
 
         self.Show_Best()
         time.sleep(10)
@@ -48,6 +52,12 @@ class PARALLEL_HILL_CLIMBER:
         filename = self.evolveType + "_seed" + str(self.seed) +".txt"
         f = open(filename, "w")
         f.write(str(self.bestFitness))
+        f.close()
+
+        print(self.bestFitnessIDs)
+        filename = self.evolveType + "_seed" + str(self.seed) +"_ID.txt"
+        f = open(filename, "w")
+        f.write(str(self.bestFitnessIDs))
         f.close()
 
     def Evolve_For_One_Generation(self):
@@ -76,12 +86,15 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[key] = self.children[key]
 
         tempBest = self.parents[0].fitness
+        tempBestID = self.parents[0].myID
         for key in self.parents:
             if self.parents[key].fitness < tempBest:
                 # tempBestKey = key
                 tempBest = self.parents[key].fitness
+                tempBestKey = self.parents[key].myID
         
         self.bestFitness.append(tempBest)
+        self.bestFitnessIDs.append(tempBestKey)
 
     def Evaluate(self, solutions):
         for solution in solutions:

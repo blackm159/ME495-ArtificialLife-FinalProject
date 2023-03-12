@@ -25,31 +25,31 @@ phc_coevolve.Show_Best()
 
 input("Please press enter to continue to brain first evolution \n")
 
-# ***********************************************************************
-# BRAIN FIRST HALF
-os.system("py removeFiles.py")
+# # ***********************************************************************
+# # BRAIN FIRST HALF
+# os.system("py removeFiles.py")
 
-phc_brain = PARALLEL_HILL_CLIMBER("BrainBody")
+# phc_brain = PARALLEL_HILL_CLIMBER("BrainBody")
 
-phc_brain.Evolve()
+# phc_brain.Evolve()
 
-input("Please press enter when ready to record best \n")
+# input("Please press enter when ready to record best \n")
 
-phc_brain.Show_Best()
+# phc_brain.Show_Best()
 
-input("Please press enter to continue to body first evolution \n")
+# input("Please press enter to continue to body first evolution \n")
 
-# ***********************************************************************
-# BODY FIRT HALF
-os.system("py removeFiles.py")
+# # ***********************************************************************
+# # BODY FIRT HALF
+# os.system("py removeFiles.py")
 
-phc_body = PARALLEL_HILL_CLIMBER("BodyBrain")
+# phc_body = PARALLEL_HILL_CLIMBER("BodyBrain")
 
-phc_body.Evolve()
+# phc_body.Evolve()
 
-input("Please press enter when ready to record best \n")
+# input("Please press enter when ready to record best \n")
 
-phc_body.Show_Best()
+# phc_body.Show_Best()
 
 
 
