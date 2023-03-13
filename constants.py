@@ -26,7 +26,7 @@ backLegMotorValues = backLegAmplitude * np.sin(backLegFrequency *
 numberOfGenerations = 500
 populationSize = 10
 
-seed = 25#random.randint(0,100)
+seed = 100#random.randint(0,100)
 
 random.seed(seed)
 
