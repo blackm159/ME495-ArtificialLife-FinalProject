@@ -1,4 +1,4 @@
-# **ME495-FinalProject**
+# **ME495 Artificial Life Final Project**
  
 ## **Initial Creature Generation**
 #### 
@@ -45,6 +45,10 @@ Fitness is determined by the end location of the first torso link in the y direc
 </p>
 
 MATLAB code for generating this plot can be found in the Data subfolder.
+
+Demo Video: 
+
+[![Demo Video](https://img.youtube.com/vi/YYA4Wkm1kpI/0.jpg)](https://www.youtube.com/watch?v=YYA4Wkm1kpI)
 
 
 ## **Discussion**
